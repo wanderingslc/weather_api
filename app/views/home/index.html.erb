@@ -1,25 +1,13 @@
-<h1 class="mt-5" data-controller="hello">Weather Checker</h1>
+<h1 class="mt-5" >Weather Checker</h1>
 <div class="mt-2">
-  Lets check that weather
 
-  <%= form_with url: "home/api_call" do |f| %>
-    <div class="mb-3">
-      <%= f.label :city, "City", class: 'form-label' %>
-      <%= f.text_field :city, class: 'form-control' %>
-    </div>
-
-  <div class="mb-3">
-    <%= f.label :zip_code, "Zip Code", class: 'form-label' %>
-    <%= f.text_field :zip_code, class: 'form-control' %>
+<div class="row">
+  <div class="col-lg-4 m-2">
+    <%= render 'weather_form' %>
   </div>
-
-
-    <div class="mb-3 form-check form-switch">
-      <%= f.check_box :geo_locate, class: 'form-check-input', role: 'switch', id: 'geolocate' %>
-      <%= f.label :geo_locate, 'Geolocate with browser', class: 'form-check-label', for: 'geolocate' %>
-    </div>
-
-    <%= f.submit 'Get Weather', class: 'btn btn-primary mb-5' %>
-  <% end %>
+  <div class="col-lg-4 m-2">
+    <%= render 'display_weather' %>
+  </div>
+</div>
 
 </div>

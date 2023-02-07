@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 
   def api_call
     binding.pry
-    response = WeatherApiCall.new.call
+    @weather = JSON.parse(WeatherApiCall.new(params["city"]).call)
   end
 end
