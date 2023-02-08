@@ -5,7 +5,6 @@ class HomeController < ApplicationController
 
   def api_call
 
-
     response = WeatherApiCall.new(params["search_term"], params['days']).call
     if response[:status] == 200
       @weather = response
@@ -17,5 +16,4 @@ class HomeController < ApplicationController
       redirect_to root_path, notice: 'Must include a term'
     end
   end
-
 end

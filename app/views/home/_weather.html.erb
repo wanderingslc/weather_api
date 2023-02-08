@@ -1,37 +1,57 @@
 <%= turbo_frame_tag 'weather' do %>
   <% if @weather == 'waiting' %>
-    <h5>No call made yet</h5>
+
   <% else %>
-    <h2>Weather Forecast for <%= @weather[:location]['name'] %>, <%= @weather[:location]['country'] %> </h2>
+
+    <h2>Weather Forecast for <%= @weather[:location]['name'] %>, <%= @weather[:location]['region'] %>, <%= @weather[:location]['country'] %> </h2>
     <div class="card" style="width: 25rem;">
       <div class="card-header">
         <%= Time.now.strftime("%A") %>, <%= Time.now.strftime("%B %d") %>
       </div>
-      <div class="card-body">
-        <%= @weather[:cached] %>
-        <%= image_tag @weather[:current]["condition"]["icon"] %>
-        <%= @weather[:current]["condition"]['text'] %>
-        <%= @weather[:current]["temp_f"] %>
-        <p>High Today: <%= @weather[:days][0][1]['maxtemp_f'] %></p>
-        <p>Low Today: <%= @weather[:days][0][1]['mintemp_f'] %></p>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <%= image_tag @weather[:current]["condition"]["icon"], class: 'img-fluid rounded-start' %>
+            </div>
+            <div class="col-md-7">
+              <p><%= @weather[:current]["condition"]['text'] %></p>
+              <p><%= @weather[:current]["temp_f"] %>&#8457</p>
+              <p>High Today: <%= @weather[:days][0][1]['maxtemp_f'] %>&#8457</p>
+              <p>Low Today: <%= @weather[:days][0][1]['mintemp_f'] %>&#8457</p>
+              <p class="card-text">
+                <small class="text-muted">
+                  Cached Call: <%= @weather[:cached] %><br>updated at <%= Time.at(@weather[:current]['last_updated_epoch']) %>
+                </small>
+              </p>
+            </div>
+          </div>
       </div>
     </div>
 
-
-    <div class="row flex-wrap flex-row  pb-4 pt-2 " >
-      <% @weather[:days].each do |d| %>
-        <div class="card" style="width: 13rem; ">
-          <div class="card-header">
-            <%= d[0] %>
-          </div>
-          <div class="card-body">
-            <%= image_tag d[1]['condition']['icon'] %>
-            <%= d[1]['condition']['text'] %>
+    <% if @weather[:days].length > 1 %>
+    <div class="row">
+      <% @weather[:days].each_with_index do |d, i| %>
+        <% next if i == 0 %>
+        <div class="card m-2 p-0" style="width: 15rem; ">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <%= image_tag d[1]['condition']['icon'], class: 'img-fluid rounded-start' %>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= d[0] %></h5>
+                <p class="card-text"><%= d[1]['condition']['text'] %></p>
+                <p>High: <%= d[1]['maxtemp_f']%>&#8457 </p>
+                <p>Low: <%= d[1]['mintemp_f'] %>&#8457</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
           </div>
         </div>
       <% end %>
     </div>
-
+<% end %>
   <% end %>
 <% end %>
 

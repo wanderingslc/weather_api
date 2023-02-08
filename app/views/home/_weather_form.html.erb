@@ -1,13 +1,19 @@
-<h4>Enter Info in a Field</h4>
 
-  <%= form_with url: "home/api_call", class: 'row g-3' do |f| %>
-    <div class="col-auto">
-      <%= f.select :days, options_for_select((1..10)), {}, { class: 'form-select' } %>
-    </div>
-    <div class="col-auto">
-      <%= f.text_field :search_term, class: 'form-control' %>
-    </div>
-    <div class="col-auto">
-      <%= f.submit 'Get Weather', class: 'btn btn-primary mb-5' %>
-    </div>
-  <% end %>
+<small class="text-muted">No validation yet, Enter crazy things at own risk</small>
+
+<%= form_with url: "home/api_call", class: 'row g-3' do |f| %>
+  <div class="col-auto">
+    <%= f.label :days, 'Days', class: 'col-form-label' %>
+  </div>
+  <div class="col-auto">
+    <%= f.select :days, options_for_select((1..10)), {}, { class: 'form-select' } %>
+  </div>
+
+  <div class="col-auto">
+
+    <%= f.text_field :search_term, class: 'form-control', placeholder: 'Zip, City, or Lat,Lng', required: true %>
+  </div>
+  <div class="col-auto">
+    <%= f.submit 'Get Weather', class: 'btn btn-primary mb-5' %>
+  </div>
+<% end %>
