@@ -1,0 +1,39 @@
+<%= turbo_frame_tag 'weather' do %>
+  <% if @weather == 'waiting' %>
+    <h5>No call made yet</h5>
+  <% else %>
+    <h2>Weather Forecast for <%= @weather[:location]['name'] %>, <%= @weather[:location]['country'] %> </h2>
+    <div class="card" style="width: 25rem;">
+      <div class="card-header">
+        <%= Time.now.strftime("%A") %>, <%= Time.now.strftime("%B %d") %>
+      </div>
+      <div class="card-body">
+        <%= @weather[:cached] %>
+        <%= image_tag @weather[:current]["condition"]["icon"] %>
+        <%= @weather[:current]["condition"]['text'] %>
+        <%= @weather[:current]["temp_f"] %>
+        <p>High Today: <%= @weather[:days][0][1]['maxtemp_f'] %></p>
+        <p>Low Today: <%= @weather[:days][0][1]['mintemp_f'] %></p>
+      </div>
+    </div>
+
+
+    <div class="row flex-wrap flex-row  pb-4 pt-2 " >
+      <% @weather[:days].each do |d| %>
+        <div class="card" style="width: 13rem; ">
+          <div class="card-header">
+            <%= d[0] %>
+          </div>
+          <div class="card-body">
+            <%= image_tag d[1]['condition']['icon'] %>
+            <%= d[1]['condition']['text'] %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  <% end %>
+<% end %>
+
+<br>
+<br><br><br><br><br>

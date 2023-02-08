@@ -1,20 +1,13 @@
 <h4>Enter Info in a Field</h4>
-<%= form_with url: "home/api_call" do |f| %>
-  <div class="mb-3">
-    <%= f.label :city, "City", class: 'form-label' %>
-    <%= f.text_field :city, class: 'form-control' %>
-  </div>
 
-  <div class="mb-3">
-    <%= f.label :zip_code, "Zip Code", class: 'form-label' %>
-    <%= f.text_field :zip_code, class: 'form-control' %>
-  </div>
-
-
-  <div class="mb-3 form-check form-switch">
-    <%= f.check_box :geo_locate, class: 'form-check-input', role: 'switch', id: 'geolocate' %>
-    <%= f.label :geo_locate, 'Geolocate with browser', class: 'form-check-label', for: 'geolocate' %>
-  </div>
-
-  <%= f.submit 'Get Weather', class: 'btn btn-primary mb-5' %>
-<% end %>
+  <%= form_with url: "home/api_call", class: 'row g-3' do |f| %>
+    <div class="col-auto">
+      <%= f.select :days, options_for_select((1..10)), {}, { class: 'form-select' } %>
+    </div>
+    <div class="col-auto">
+      <%= f.text_field :search_term, class: 'form-control' %>
+    </div>
+    <div class="col-auto">
+      <%= f.submit 'Get Weather', class: 'btn btn-primary mb-5' %>
+    </div>
+  <% end %>
